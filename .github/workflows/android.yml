@@ -21,11 +21,17 @@ jobs:
       - name: Grant permission
         run: chmod +x ./gradlew
 
+      - name: Check project structure
+        run: ls -R
+
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Find APK
+        run: find . -name "*.apk"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: navarro-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: debug-apk
+          path: "**/*.apk"
